@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:societyworker/setup_screens/login.dart';
+import 'package:society_worker/setup_screens/login.dart';
 import 'package:splashscreen/splashscreen.dart';
 
 void main() => runApp(new MyApp());
