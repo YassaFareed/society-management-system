@@ -9,6 +9,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+
       debugShowCheckedModeBanner: false,
       home: new SplashScreenPage(),
     );
@@ -22,6 +23,7 @@ class SplashScreenPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return SplashScreen(
       seconds: 4,
+      routeName: '/',
       navigateAfterSeconds:  MyHomePage(),
       title: new Text('Worker Screen',textScaleFactor: 2.2,),
       image: new Image.asset('images/worker.jpg'),
