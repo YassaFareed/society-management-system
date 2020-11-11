@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:societyworker/home_screens/homescreen.dart';
-import 'package:societyworker/Detail_screens/updatedetails.dart';
+import 'package:societyworker/Drawer/addcomplain.dart';
 
 
 
@@ -10,22 +10,6 @@ class mainDrawer extends StatefulWidget {
 }
 
 class _mainDrawerState extends State<mainDrawer> {
-  int pageNo;
-
-  @override
-  void initState() {
-    super.initState();
-    pageNo = 1;
-  }
-  getPage() {
-    if(pageNo == 1)
-      return homeScreen();
-    else if(pageNo == 2)
-      return updateDetails();
-
-    }
-
-
 
 
   @override
@@ -38,12 +22,8 @@ class _mainDrawerState extends State<mainDrawer> {
             DrawerHeader(
               child:Column(
               children:[
-                GestureDetector(
-                  onTap: () {
-                    Navigator.pop(context);
-                    Navigator.push(context, MaterialPageRoute(builder: (context) =>  new updateDetails()));
-                  },
-                 child: Container(
+
+                Container(
                  width:100,
                  height: 100,
                  decoration: BoxDecoration(
@@ -54,7 +34,7 @@ class _mainDrawerState extends State<mainDrawer> {
                   ),
                 ),
               ),
-                ),
+
                 Text(
                 'Name',
                 style: TextStyle(color: Colors.white),
@@ -71,22 +51,22 @@ class _mainDrawerState extends State<mainDrawer> {
             ),
 
             ListTile(
-              leading: Icon(Icons.home),
+              leading: Icon(Icons.add),
               title: Text(
-                'Home',
+                'Add Complain',
                 style: TextStyle(
                   color: Colors.black,
                 ),
               ),
               onTap: () {
-                //Navigator.pop(context);
-              //  Navigator.push(context, MaterialPageRoute(builder: (context) =>  new updateDetails()));
+                Navigator.pop(context);
+               Navigator.push(context, MaterialPageRoute(builder: (context) =>  new addComplain()));
               },
             ),
             ListTile(
-              leading: Icon(Icons.info),
+              leading: Icon(Icons.all_out),
               title: Text(
-                'About',
+                'Signout',
                 style: TextStyle(
                   color: Colors.black,
                 ),
