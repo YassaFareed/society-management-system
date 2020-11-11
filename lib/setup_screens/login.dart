@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 //import 'package:neumorphic/neumorphic.dart';
 import 'package:societyworker/home_screens/homescreen.dart';
+import 'package:societyworker/home_screens/navigationbar.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -289,7 +290,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => homeScreen()));
+                                        builder: (context) => navBar()));
                               },
                               child: Center(
                                 child: Text(
