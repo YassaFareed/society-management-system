@@ -27,6 +27,8 @@ dependencies:
   carousel_slider: ^2.3.1
   image_picker: ^0.6.6+5
   neumorphic: any
+  intl: ^0.16.1
+  fl_chart: '0.2.0'
 
   geocoder: ^0.2.1
   geolocator: ^5.2.0
