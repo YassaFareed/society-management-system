@@ -1,26 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:societyworker/Drawer/maindrawer.dart';
+import 'package:fl_chart/fl_chart.dart';
 
 
-class homeScreen extends StatefulWidget {
-  @override
-  _homeScreenState createState() => _homeScreenState();
-}
 
-class _homeScreenState extends State<homeScreen> {
+class homeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar:AppBar(
-        title: Text('home'),
-        backgroundColor: Colors.black,
-      ),
-        drawer:mainDrawer(),
-        body: Attendance(),
-    );
 
+
+      drawer:mainDrawer(),
+      body: Attendance(),
+    );
   }
 }
+
 
 class Attendance extends StatefulWidget {
   @override
@@ -28,8 +23,34 @@ class Attendance extends StatefulWidget {
 }
 
 class _AttendanceState extends State<Attendance> {
-  int absent =0;
-  int present =0;
+
+
+  List<PieChartSectionData> _sections = List<PieChartSectionData>();
+  int absent =4;
+  int present =10;
+  @override
+
+  void initState() {
+    super.initState();
+
+    PieChartSectionData _item1 = PieChartSectionData(
+      color: Colors.green,
+      value: present.toDouble(),
+      title: 'Present',
+      radius: 50,
+      titleStyle:TextStyle(color: Colors.white,fontSize:20),
+    );
+
+    PieChartSectionData _item2 = PieChartSectionData(
+      color: Colors.redAccent,
+      value: absent.toDouble(),
+      title: 'Absent',
+      radius: 50,
+      titleStyle:TextStyle(color: Colors.white,fontSize:20),
+    );
+
+    _sections = [_item1,_item2];
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,11 +66,11 @@ class _AttendanceState extends State<Attendance> {
                   child:Text(
                     'Attendance Status',
                     textAlign:TextAlign.center,
-                    style: TextStyle(fontWeight: FontWeight.bold, height:3, fontSize:30),
+                    style: TextStyle(color:Colors.white,fontWeight: FontWeight.bold, height:3, fontSize:30),
                   ),
                   height:200,
 
-                  color:Colors.black12,
+                  color:Colors.black,
                 )
             ),
             Expanded(
@@ -66,10 +87,10 @@ class _AttendanceState extends State<Attendance> {
                         child:Text(
                           'This Month:',
                           textAlign:TextAlign.center,
-                          style: TextStyle(fontWeight: FontWeight.bold, height:3, fontSize:30),
+                          style: TextStyle(color:Colors.white, fontWeight: FontWeight.bold, height:3, fontSize:30),
                         ),
 
-                        color:Colors.white,
+                        color:Colors.black,
                         height: 100,
                         width: 50,
                       ),
@@ -114,36 +135,30 @@ class _AttendanceState extends State<Attendance> {
 
               ),
             ),
-            Expanded(
-                flex:1,
 
-                child: Container(
-                     child:Text(
-                    'Mark your attendence here',
-                    textAlign:TextAlign.center,
-                    style: TextStyle(fontWeight: FontWeight.bold, height:2, fontSize:25),
-                  ),
-
-
-                  color:Colors.white,
-                ),
-
-                ),
 
 
             Expanded(
               flex:4,
-              child:Container(
-
-                color:Colors.white,
-              )
+                child: Container(
+                  child:AspectRatio(
+                    aspectRatio: 1,
+                    child: FlChart(
+                      chart: PieChart(
+                        PieChartData(sections: _sections, borderData:FlBorderData(show:true), centerSpaceRadius: 80, sectionsSpace:0),
+                      ),
+                    ),
+                  ),
+                  color:Colors.white,
+                ),
             ),
 
 
-                 ],
 
-            ),
-            )
+
+    ],
+        ),
+    ),
     );
 
   }
