@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 //import 'package:neumorphic/neumorphic.dart';
 import 'package:societyworker/home_screens/homescreen.dart';
 import 'package:societyworker/home_screens/navigationbar.dart';
+import 'package:toast/toast.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -20,8 +21,6 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomPadding:false,
-      //resizeToAvoidBottomInset: false,
         body:Container(
           width:double.infinity,
           height:double.infinity,
@@ -287,10 +286,42 @@ class _LoginScreenState extends State<LoginScreen> {
                             elevation: 7.0,
                             child: MaterialButton(
                               onPressed: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => navBar()));
+
+                                if(emailProvided && passwordProvided) {
+                                  Navigator.pop(context);
+                                  Navigator.push(context, MaterialPageRoute(builder: (context) => navBar()));
+                                  print('Verifying Worker');
+                                  Toast.show("Verified", context,
+                                      duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+                                }
+
+                                else if(!emailProvided && !passwordProvided){
+                                  Toast.show("invalid Email and Password", context,
+                                      duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+                                }
+                                else if(emailProvided){
+                                  Toast.show("invalid Password", context,
+                                      duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+
+                                }
+                                else
+                                  Toast.show("invalid Email", context,
+                                      duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+//                        AuthService().login(_email.text, _password.text).then((val) {
+//                          if(val?.data['success']?? ''){
+//                            token = val.data['token'];
+//                            Fluttertoast.showToast(
+//                              msg: 'Authenticated',
+//
+//                              gravity: ToastGravity.BOTTOM,
+//                              backgroundColor: Colors.green,
+//                              textColor: Colors.white,
+//                              fontSize: 16.0,
+//                            );
+//                            Navigator.pop(context);
+//
+//                          }
+//                        });
                               },
                               child: Center(
                                 child: Text(
