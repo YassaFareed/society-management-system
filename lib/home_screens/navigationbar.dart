@@ -3,6 +3,9 @@ import 'package:societyworker/Drawer/maindrawer.dart';
 import 'package:societyworker/home_screens/homescreen.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:societyworker/home_screens/markattendance.dart';
+import 'package:societyworker/home_screens/attendancescreen.dart';
+import 'package:societyworker/setup_screens/complainscreen.dart';
+import 'package:societyworker/Detail_screens/payrolldetail.dart';
 
 
 
@@ -13,7 +16,7 @@ class navBar extends StatefulWidget {
 
 class _navBarState extends State<navBar> {
 
-  var PageOptions = [homeScreen() , attendanceMark()];
+  var PageOptions = [attendanceScreen() , complainManagement(), payrollWorker()];
   int _page = 0;
   @override
   Widget build(BuildContext context) {
@@ -36,7 +39,11 @@ class _navBarState extends State<navBar> {
           ),
           Padding(
             padding: const EdgeInsets.only(bottom: 8.0),
-            child: Text("Check-in",style: TextStyle(color: _page==1 ?Colors.black: Colors.white),),
+            child: Text("Complains",style: TextStyle(color: _page==1 ?Colors.black: Colors.white),),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(bottom: 8.0),
+            child: Text("Payroll",style: TextStyle(color: _page==2 ?Colors.black: Colors.white),),
           ),
         ],
         color: Colors.black,
