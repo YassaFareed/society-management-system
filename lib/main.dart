@@ -26,7 +26,7 @@ class SplashScreenPage extends StatelessWidget {
       routeName: '/',
       navigateAfterSeconds:  MyHomePage(),
       title: new Text('Worker Screen',textScaleFactor: 2.2,),
-      image: new Image.asset('images/worker.jpg'),
+      image: new Image.asset('images/worker.png'),
       loadingText: Text("Loading"),
       photoSize: 170.0,
       loaderColor: Colors.black,
