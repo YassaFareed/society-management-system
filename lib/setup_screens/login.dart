@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:societyworker/home_screens/homescreen.dart';
 import 'package:societyworker/home_screens/navigationbar.dart';
 import 'package:toast/toast.dart';
+import 'package:societyworker/setup_screens/forgotpassword.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -37,7 +38,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   SizedBox(
                     height: 250.0,
                     child: Image.asset(
-                    "images/worker.jpg",
+                    "images/worker.png",
                    // fit: BoxFit.contain,
                   ),
                 ),
@@ -265,13 +266,12 @@ class _LoginScreenState extends State<LoginScreen> {
                                 decoration: TextDecoration.underline,
                               ),
                             ),
-                           onTap:(){},
-                           /* onTap: () {
+                           onTap:() {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => forgot_password()));
-                            },*/
+                                      builder: (context) => forgotPassword()));
+                            },
                           ),
                         ),
                         SizedBox(
