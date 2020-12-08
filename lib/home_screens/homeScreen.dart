@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:societyworker/Drawer/maindrawer.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
-import 'package:societyworker/home_screens/attendancescreen.dart';
 import 'package:societyworker/home_screens/house_hould_screen.dart';
 import 'package:societyworker/home_screens/markattendance.dart';
 import 'package:societyworker/home_screens/worker_screen.dart';

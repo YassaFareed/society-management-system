@@ -2,6 +2,7 @@
 
 import 'dart:async';
 
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -20,13 +21,14 @@ class _attendanceMarkState extends State<attendanceMark> {
   @override
   bool pressAttention = false;
   String value = 'Check-in';
-  DateFormat dateFormat = DateFormat("dd-MM-yyyy  HH:mm:ss");
+  DateFormat dateFormat = DateFormat("dd MMMM yyyy");
   DateFormat timeFormat = DateFormat("HH:mm:ss");
+  DateFormat dayFormat = DateFormat('EEEE');
 
   //stopwatch
-  bool resetispressed = true;
-  bool startispressed = true;
-  bool stopispressed = true;
+  //bool resetispressed = true;
+ // bool startispressed = true;
+ // bool stopispressed = true;
   String stoptimetodisplay = "00:00:00";
   var swatch = Stopwatch();
   final dur = const Duration(seconds: 1);
@@ -56,19 +58,7 @@ class _attendanceMarkState extends State<attendanceMark> {
     swatch.stop();
    // stoptimetodisplay = "00:00:00";
   }*/
-  void stopstopwatch(){
-    setState(() {
-      stopispressed = true;
-      resetispressed = false;
-    });
-    // if(pressAttention==false)
-     swatch.stop();
-  }
 
-  void startstopwatch(){
-    swatch.start();
-
-  }
 
   void isTest()
   {
@@ -76,39 +66,121 @@ class _attendanceMarkState extends State<attendanceMark> {
     if(pressAttention==false)
     {
       value='Check-in';
-      stopstopwatch();
+      swatch.stop();
 
     }
     else{
       value='Check-out';
-      startstopwatch();
+      swatch.start();
 
     }
   }
 
   Widget build(BuildContext context) {
-    return Scaffold(
-      body:Center(
-        child:Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children:[
-
-            Text('Current Time',
-                style: TextStyle(fontSize: 30,fontWeight: FontWeight.w700)),
-            SizedBox(
-              height: 10,
+    return Padding(
+      padding: const EdgeInsets.all(20),
+      child: Column(
+        children:[
+          Card(
+            elevation: 10,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(15.0),
             ),
-            Text(dateFormat.format(DateTime.now()).toString(),
-                style: TextStyle(fontSize: 30,fontWeight: FontWeight.w700)),
-            SizedBox(
-              height: 60,
+            child:Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+
+                width: MediaQuery.of(context).size.width*0.9,
+                child: Row(
+                  children:[
+                    Ink(
+
+                      child: Icon(
+                        Icons.calendar_today,
+                        size:30.0,
+                      ),
+                    ),
+                    SizedBox(width: MediaQuery.of(context).size.width*0.05),
+                    Text('Date',style: TextStyle( fontSize:22.0)),
+                    SizedBox(width: MediaQuery.of(context).size.width*0.05),
+                    Text(dateFormat.format(DateTime.now()).toString(),style: TextStyle( fontSize:22.0)),
+                  ],
+                ),
+              ),
             ),
 
-            Container(
-              width: 200,
-              height: 200,
+
+          ),
+          SizedBox(height:10,),
+          Card(
+            elevation: 10,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(15.0),
+            ),
+            child:Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                width: MediaQuery.of(context).size.width*0.9,
+                child: Row(
+                  children:[
+                    Ink(
+
+                      child: Icon(
+                        Icons.calendar_view_day,
+                        size:30.0,
+                      ),
+                    ),
+                    SizedBox(width: MediaQuery.of(context).size.width*0.05),
+                    Text('Day',style: TextStyle( fontSize:22.0)),
+                    SizedBox(width: MediaQuery.of(context).size.width*0.08),
+                    Text(dayFormat.format(DateTime.now()).toString(),style: TextStyle( fontSize:22.0)),
+                  ],
+                ),
+              ),
+            ),
+
+          ),
+          SizedBox(height:20,),
+
+          Card(
+            elevation: 10,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(15.0),
+            ),
+            child:Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+
+                width: MediaQuery.of(context).size.width*0.9,
+                child: Row(
+                  children:[
+                    Ink(
+
+                      child: Icon(
+                        Icons.timer,
+                        size:30.0,
+                      ),
+                    ),
+                    SizedBox(width: MediaQuery.of(context).size.width*0.05),
+                    Text('Time',style: TextStyle( fontSize:22.0)),
+                    SizedBox(width: MediaQuery.of(context).size.width*0.06),
+                    Text(timeFormat.format(DateTime.now()).toString(),style: TextStyle( fontSize:22.0)),
+                  ],
+                ),
+              ),
+            ),
+
+          ),
+          SizedBox(height:20,),
+
+
+          Container(
+            height: MediaQuery.of(context).size.height*0.3,
+            width: MediaQuery.of(context).size.width*0.9,
+
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
               child: MaterialButton(
-
                 child: Text(value, style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold)),
                 textColor: Colors.white,
                 shape: CircleBorder(
@@ -122,31 +194,70 @@ class _attendanceMarkState extends State<attendanceMark> {
                 }),
               ),
             ),
-            SizedBox(
-              height: 60,
-            ),
-            Text(
-              'Hours Worked',
-              style: TextStyle(
-                fontSize:30.0,
-                fontWeight: FontWeight.w700,
               ),
+
+          SizedBox(height:10,),
+          Card(
+            elevation: 10,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(15.0),
             ),
-            Container(
-              alignment:Alignment.center,
-              child: Text(
-                stoptimetodisplay,
-                style: TextStyle(
-                  fontSize:30.0,
-                  fontWeight: FontWeight.w700,
+            child:Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                width: MediaQuery.of(context).size.width*0.9,
+                child: Row(
+                  children:[
+                    Ink(
+
+                      child: Icon(
+                        Icons.access_time,
+                        size:30.0,
+                      ),
+                    ),
+                    SizedBox(width: MediaQuery.of(context).size.width*0.05),
+                    Text('Hours Worked',style: TextStyle( fontSize:22.0)),
+                    SizedBox(width: MediaQuery.of(context).size.width*0.08),
+                    Text(stoptimetodisplay,style: TextStyle( fontSize:22.0)),
+                  ],
                 ),
               ),
-
             ),
-          ],
+
+          ),
+
+          SizedBox(height:10,),
+          Card(
+            elevation: 10,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(15.0),
+            ),
+            child:Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                width: MediaQuery.of(context).size.width*0.9,
+                child: Row(
+                  children:[
+                    Ink(
+
+                      child: Icon(
+                        Icons.bookmark_border,
+                        size:30.0,
+                      ),
+                    ),
+                    SizedBox(width: MediaQuery.of(context).size.width*0.05),
+                    Text('Attendance',style: TextStyle( fontSize:22.0)),
+                    SizedBox(width: MediaQuery.of(context).size.width*0.15),
+                    Text('Pending',style: TextStyle( fontSize:22.0)),
+                  ],
+                ),
+              ),
+            ),
+
+          ),
 
 
-        ),
+        ],
       ),
     );
   }
