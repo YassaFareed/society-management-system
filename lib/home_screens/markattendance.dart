@@ -1,3 +1,5 @@
+
+
 import 'dart:async';
 
 import 'package:flutter/material.dart';
@@ -9,11 +11,17 @@ class attendanceMark extends StatefulWidget {
 }
 
 class _attendanceMarkState extends State<attendanceMark> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    starttimer();
+  }
 
   @override
   bool pressAttention = false;
   String value = 'Check-in';
   DateFormat dateFormat = DateFormat("dd-MM-yyyy  HH:mm:ss");
+  DateFormat timeFormat = DateFormat("HH:mm:ss");
 
   //stopwatch
   bool resetispressed = true;
@@ -28,13 +36,15 @@ class _attendanceMarkState extends State<attendanceMark> {
   }
 
   void keeprunning(){
-    if(swatch.isRunning){
       starttimer();
-    }
+
     setState(() {
-      stoptimetodisplay = swatch.elapsed.inHours.toString().padLeft(2, "0") + ":" //if string is < width 2 then add 0 on left
-          + (swatch.elapsed.inMinutes%60).toString().padLeft(2, "0") + ":"
-          + (swatch.elapsed.inSeconds%60).toString().padLeft(2, "0");
+
+      if(swatch.isRunning)
+        stoptimetodisplay = swatch.elapsed.inHours.toString().padLeft(2, "0") + ":" //if string is < width 2 then add 0 on left
+            + (swatch.elapsed.inMinutes%60).toString().padLeft(2, "0") + ":"
+            + (swatch.elapsed.inSeconds%60).toString().padLeft(2, "0");
+
     });
   }
 
@@ -51,12 +61,13 @@ class _attendanceMarkState extends State<attendanceMark> {
       stopispressed = true;
       resetispressed = false;
     });
-    swatch.stop();
+    // if(pressAttention==false)
+     swatch.stop();
   }
 
   void startstopwatch(){
     swatch.start();
-    starttimer();
+
   }
 
   void isTest()
@@ -92,6 +103,7 @@ class _attendanceMarkState extends State<attendanceMark> {
             SizedBox(
               height: 60,
             ),
+
             Container(
               width: 200,
               height: 200,

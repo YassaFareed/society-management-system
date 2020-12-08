@@ -1,3 +1,4 @@
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 
@@ -7,261 +8,223 @@ class payrollWorker extends StatefulWidget {
 }
 
 class _payrollWorkerState extends State<payrollWorker> {
+
+  List<PieChartSectionData> _sections = List<PieChartSectionData>();
+  int absent =5;
+  int present =20;
+  @override
+
+  void initState() {
+    super.initState();
+
+    PieChartSectionData _item1 = PieChartSectionData(
+      color: Colors.green,
+      value: present.toDouble(),
+      title: 'Present',
+      radius: 50,
+      titleStyle:TextStyle(color: Colors.white,fontSize:20),
+    );
+
+    PieChartSectionData _item2 = PieChartSectionData(
+      color: Colors.redAccent,
+      value: absent.toDouble(),
+      title: 'Absent',
+      radius: 50,
+      titlePositionPercentageOffset: 0.5,
+      titleStyle:TextStyle(color: Colors.white,fontSize:20),
+    );
+
+    _sections = [_item1,_item2];
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
       child:ListView(
         padding: const EdgeInsets.all(20),
         children:[
-         Container(
-              child:Row(
-               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-               children:[
-                Ink(
-                   decoration: ShapeDecoration(
-                     color: Colors.red,
-                     shape: CircleBorder(),
-                   ),
-                  child: Icon(
-                   Icons.attach_money,
-                    size:30.0,
-                   ),
-                    ),
-                Text('Basic Income',style: TextStyle(fontWeight: FontWeight.bold, fontSize:25.0)),
-                Text('\$1000',style: TextStyle(fontWeight: FontWeight.bold, fontSize:25.0)),
-              ],
-            ),
-           color: Colors.lightBlue,
-           height:100,
-         ),
-        SizedBox(
-        height:20,
-        ),
+         Card(
+           elevation: 10,
+           shape: RoundedRectangleBorder(
+             borderRadius: BorderRadius.circular(15.0),
+           ),
+              child:Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
 
-        Container(
-              child:Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children:[
-                  Ink(
-                    decoration: ShapeDecoration(
-                      color: Colors.red,
-                      shape: CircleBorder(),
-                    ),
-                    child: Icon(
-                      Icons.arrow_downward_outlined,
-                      size:30.0,
-                    ),
-                  ),
-                  Text('Deductions',style: TextStyle(fontWeight: FontWeight.bold, fontSize:25.0)),
-                  Text('\$1000',style: TextStyle(fontWeight: FontWeight.bold, fontSize:25.0)),
-                ],
-              ),
-              color: Colors.redAccent,
-              height:100,
+                  width: MediaQuery.of(context).size.width*0.9,
+                  child: Row(
+                   children:[
+                    Ink(
+
+                      child: Icon(
+                       Icons.layers,
+                        size:30.0,
+                       ),
+                        ),
+                     SizedBox(width: MediaQuery.of(context).size.width*0.12),
+                    Text('Total Present',style: TextStyle( fontSize:22.0)),
+                     SizedBox(width: MediaQuery.of(context).size.width*0.05),
+                    Text('20',style: TextStyle( fontSize:25.0)),
+                  ],
             ),
-          SizedBox(
-            height:20,
+                ),
+              ),
+
+
+         ),
+        SizedBox(height:10,),
+          Card(
+            elevation: 10,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(15.0),
+            ),
+            child:Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+
+                width: MediaQuery.of(context).size.width*0.9,
+                child: Row(
+                  children:[
+                    Ink(
+
+                      child: Icon(
+                        Icons.layers_clear,
+                        size:30.0,
+                      ),
+                    ),
+                    SizedBox(width: MediaQuery.of(context).size.width*0.135),
+                    Text('Total Absent',style: TextStyle( fontSize:22.0)),
+                    SizedBox(width: MediaQuery.of(context).size.width*0.05),
+                    Text('5',style: TextStyle( fontSize:25.0)),
+                  ],
+                ),
+              ),
+            ),
+
           ),
+          SizedBox(height:20,),
 
           Container(
-            child:Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children:[
-                Ink(
-                  decoration: ShapeDecoration(
-                    color: Colors.red,
-                    shape: CircleBorder(),
-                  ),
-                  child: Icon(
-                    Icons.arrow_upward_outlined,
-                    size:30.0,
+            height: 280,
+            color:Colors.white,
+            child: Card(
+              elevation: 20,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15.0)),
+              child:AspectRatio(
+                aspectRatio: 1,
+                child: FlChart(
+                  chart: PieChart(
+                    PieChartData(sections: _sections, borderData:FlBorderData(show:false), centerSpaceRadius: 80, sectionsSpace:6),
                   ),
                 ),
-                Text('Bonus',style: TextStyle(fontWeight: FontWeight.bold, fontSize:25.0)),
-                Text('\$1000',style: TextStyle(fontWeight: FontWeight.bold, fontSize:25.0)),
-              ],
+              ),
             ),
-            color: Colors.green,
-            height:100,
           ),
-          SizedBox(
-            height:40,
-          ),
+          SizedBox(height: 10,),
           Card(
             elevation: 10.0,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(15.0),
             ),
 
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.all(3.0),
-                  child: Column(
-                    children: <Widget>[
-                      Container(
-
-                        width: 300.0,
-                        height: 30.0,
-                        child: Center(
-                          child: AutoSizeText(
-                            'Income Summary' ,
-                            style: TextStyle(fontSize: 15.0,fontWeight: FontWeight.bold),
-                            maxLines: 2,
-                          ),
-                        ),
+            child: Padding(
+              padding: const EdgeInsets.all(3.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Center(
+                    child: Padding(
+                      padding: const EdgeInsets.only(top:8.0),
+                      child: AutoSizeText(
+                        'Income Summary' ,
+                        style: TextStyle(fontSize: 16.0,fontWeight: FontWeight.bold),
+                        maxLines: 2,
                       ),
-
-                      SizedBox(height: 8,),
-
-                      // Text('Complainer Name: ',style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold)),
-                      Container(
-                        height: 20,
-                        width: 300,
-                        child: Row(
-
-                          children: <Widget>[
-                            Expanded(
-                              child: Container(
-                                child: RichText(
-                                  text: TextSpan(style: new TextStyle(fontSize: 14.0, color: Colors.black,),
-                                    children: <TextSpan>[
-                                      new TextSpan(text: 'Name: ',style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold)),
-                                      new TextSpan(text: 'Ali', style: new TextStyle(fontSize: 15),)],
-                                  ),
-                                ),
-                              ),
-                            ),
-
-                          ],
-                        ),
-                      ),
-                      SizedBox(height: 8,),
-                      Container(
-                        height: 20,
-                        width: 300,
-                        child: Row(
-
-                          children: <Widget>[
-                            Expanded(
-                              child: Container(
-                                child: RichText(
-                                  text: TextSpan(style: new TextStyle(fontSize: 14.0, color: Colors.black,),
-                                    children: <TextSpan>[
-                                      new TextSpan(text: 'Deduction per absence: ',style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold)),
-                                      new TextSpan(text: '200', style: new TextStyle(fontSize: 15),)],
-                                  ),
-                                ),
-                              ),
-                            ),
-
-                          ],
-                        ),
-                      ),
-                      SizedBox(
-                        height:8,
-                      ),
-                      Container(
-                        height: 20,
-                        width: 300,
-                        child: Row(
-
-                          children: <Widget>[
-                            Expanded(
-                              child: Container(
-                                child: RichText(
-                                  text: TextSpan(style: new TextStyle(fontSize: 14.0, color: Colors.black,),
-                                    children: <TextSpan>[
-                                      new TextSpan(text: 'Basic Salary: ',style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold)),
-                                      new TextSpan(text: '5000', style: new TextStyle(fontSize: 15),)],
-                                  ),
-                                ),
-                              ),
-                            ),
-
-                          ],
-                        ),
-                      ),
-                      SizedBox(height: 8,),
-                      Container(
-                        height: 20,
-                        width: 300,
-                        child: Row(
-
-                          children: <Widget>[
-                            Expanded(
-                              child: Container(
-                                child: RichText(
-                                  text: TextSpan(style: new TextStyle(fontSize: 14.0, color: Colors.black,),
-                                    children: <TextSpan>[
-                                      new TextSpan(text: 'Bonus:',style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold)),
-                                      new TextSpan(text: '1000', style: new TextStyle(fontSize: 15),)],
-                                  ),
-                                ),
-                              ),
-                            ),
-
-                          ],
-                        ),
-                      ),
-                      SizedBox(height: 8,),
-                      Container(
-                        height: 20,
-                        width: 300,
-                        child: Row(
-
-                          children: <Widget>[
-                            Expanded(
-                              child: Container(
-                                child: RichText(
-                                  text: TextSpan(style: new TextStyle(fontSize: 14.0, color: Colors.black,),
-                                    children: <TextSpan>[
-                                      new TextSpan(text: 'Total absents :',style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold)),
-                                      new TextSpan(text: '5', style: new TextStyle(fontSize: 15),)],
-                                  ),
-                                ),
-                              ),
-                            ),
-
-                          ],
-                        ),
-                      ),
-
-                      SizedBox(height: 12,),
-
-                      Container(
-                        height: 20,
-                        width: 300,
-                        child: Row(
-                          children: <Widget>[
-                            Expanded(
-                              child: Container(
-                                child: RichText(
-                                  text: TextSpan(style: new TextStyle(fontSize: 14.0, color: Colors.black,),
-                                    children: <TextSpan>[
-                                      new TextSpan(text: 'Total Income :',style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold)),
-                                      new TextSpan(text: '\$5000', style: new TextStyle(fontSize: 15),)],
-
-                                        ),
-                                ),
-                              ),
-                            ),
-
-
-                          ],
-                        ),
-                      ),
-                      // Text(
-                      //   "Complain:",
-                      //   style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15),
-                      // ),
-                      // SizedBox(height: 8,),
-
-                    ],
+                    ),
                   ),
-                ),
-              ],
+
+                  SizedBox(height: 8,),
+
+                  Padding(
+                    padding: const EdgeInsets.only(left:10.0,bottom: 3),
+                    child: RichText(
+                      text: TextSpan(style: new TextStyle(fontSize: 14.0, color: Colors.black,),
+                        children: <TextSpan>[
+                          new TextSpan(text: 'Name: ',style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold)),
+                          new TextSpan(text: 'Ali', style: new TextStyle(fontSize: 15),)],
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 8,),
+
+                  Padding(
+                    padding: const EdgeInsets.only(left:10.0,bottom: 3),
+                    child: RichText(
+                      text: TextSpan(style: new TextStyle(fontSize: 14.0, color: Colors.black,),
+                        children: <TextSpan>[
+                          new TextSpan(text: 'Basic Salary: ',style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold)),
+                          new TextSpan(text: '\$5000', style: new TextStyle(fontSize: 15),)],
+                      ),
+                    ),
+                  ),
+
+                  SizedBox(height: 8,),
+                  Padding(
+                    padding: const EdgeInsets.only(left:10.0,bottom: 3),
+                    child: RichText(
+                      text: TextSpan(style: new TextStyle(fontSize: 14.0, color: Colors.black,),
+                        children: <TextSpan>[
+                          new TextSpan(text: 'Bonus:',style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold)),
+                          new TextSpan(text: '\$1000', style: new TextStyle(fontSize: 15),)],
+                      ),
+                    ),
+                  ),
+
+                  SizedBox(height:8),
+
+                  Padding(
+                    padding: const EdgeInsets.only(left:10.0,bottom: 3),
+                    child: RichText(
+                      text: TextSpan(style: new TextStyle(fontSize: 14.0, color: Colors.black,),
+                        children: <TextSpan>[
+                          new TextSpan(text: 'Deduction per absence: ',style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold)),
+                          new TextSpan(text: '\$200', style: new TextStyle(fontSize: 15),)],
+                      ),
+                    ),
+                  ),
+
+                  SizedBox(height:8),
+                  Padding(
+                    padding: const EdgeInsets.only(left:10.0,bottom: 3),
+                    child: RichText(
+                      text: TextSpan(style: new TextStyle(fontSize: 14.0, color: Colors.black,),
+                        children: <TextSpan>[
+                          new TextSpan(text: 'Total Deduction :',style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold)),
+                          new TextSpan(text: '\$1000', style: new TextStyle(fontSize: 15),)],
+                      ),
+                    ),
+                  ),
+
+                  SizedBox(height: 8,),
+
+                  Padding(
+                    padding: const EdgeInsets.only(left:10.0,bottom: 3),
+                    child: RichText(
+                      text: TextSpan(style: new TextStyle(fontSize: 14.0, color: Colors.black,),
+                        children: <TextSpan>[
+                          new TextSpan(text: 'Total Income :',style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold)),
+                          new TextSpan(text: '\$5000', style: new TextStyle(fontSize: 15),)],
+
+                            ),
+                    ),
+                  ),
+                  SizedBox(height: 8,),
+
+                ],
+              ),
             ),
           ),
 
