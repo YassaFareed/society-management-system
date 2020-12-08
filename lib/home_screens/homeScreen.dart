@@ -9,12 +9,16 @@ import 'package:societyworker/Detail_screens/payrolldetail.dart';
 
 
 
-class navBar extends StatefulWidget {
+
+
+
+
+class homeScreen extends StatefulWidget {
   @override
-  _navBarState createState() => _navBarState();
+  _homeScreenState createState() => _homeScreenState();
 }
 
-class _navBarState extends State<navBar> {
+class _homeScreenState extends State<homeScreen> {
 
   var PageOptions = [attendanceScreen() , complainManagement(), payrollWorker()];
   int _page = 0;
@@ -26,7 +30,7 @@ class _navBarState extends State<navBar> {
         backgroundColor: Colors.black,
 
       ),
-      drawer:  mainDrawer(),
+      drawer:  Main_Drawer(),
       body: PageOptions[_page],
 
       bottomNavigationBar: CurvedNavigationBar(
@@ -60,4 +64,8 @@ class _navBarState extends State<navBar> {
     );
   }
 }
+
+
+
+
 
