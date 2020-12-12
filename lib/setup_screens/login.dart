@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:societyworker/home_screens/homeScreen.dart';
 import 'package:toast/toast.dart';
 import 'package:societyworker/setup_screens/forgotpassword.dart';
-
+import 'package:societyworker/services/auth_service.dart';
 
 
 class LoginScreen extends StatefulWidget {
@@ -19,6 +19,7 @@ class _LoginScreenState extends State<LoginScreen> {
   bool emailProvided = false;
   bool passwordProvided = false;
 
+  var token;
 
 
   @override
@@ -291,13 +292,33 @@ class _LoginScreenState extends State<LoginScreen> {
                       onPressed: () {
 
                         if(emailProvided && passwordProvided) {
-                          Navigator.pop(context);
-                          Navigator.push(context, MaterialPageRoute(builder: (context) =>homeScreen()));
-                          print('Verifying President');
-                          Toast.show("Verified", context,
-                              duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
-                        }
+                        AuthService()
+                          .login(_email.text, _password.text)
+                          .then((val) {
+                                            print(val);
+                                            if (val['success']) {
+                                              token = val['token'];
+                                              print(token);
+                                              Toast.show(
+                                                  "Authenticated", context,
+                                                  duration: Toast.LENGTH_LONG,
+                                                  gravity: Toast.BOTTOM);
+                                              Navigator.pop(context);
+                                              Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          homeScreen()));
+                                            }});
+    //  }
+    //  }
+    //  );
+    //   print('Verifying President');
+    //Toast.show("Verified", context,
+    //  duration: Toast.LENGTH_LONG,
+    //gravity: Toast.BOTTOM);
 
+                      }
                         else if(!emailProvided && !passwordProvided){
                           Toast.show("invalid Email and Password", context,
                               duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
@@ -307,9 +328,9 @@ class _LoginScreenState extends State<LoginScreen> {
                               duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
 
                         }
-                        else
+                        else{
                           Toast.show("invalid Email", context,
-                              duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+                              duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);}
 //                        AuthService().login(_email.text, _password.text).then((val) {
 //                          if(val?.data['success']?? ''){
 //                            token = val.data['token'];
