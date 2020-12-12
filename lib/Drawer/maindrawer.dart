@@ -1,6 +1,90 @@
 import 'package:flutter/material.dart';
-import 'package:societyworker/home_screens/homescreen.dart';
+import 'package:societyworker/Detail_screens/update_Details.dart';
+import 'package:societyworker/Drawer/my_complain.dart';
 import 'package:societyworker/Drawer/addcomplain.dart';
+import 'package:flutter/material.dart';
+import 'package:toast/toast.dart';
+
+
+class Main_Drawer extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Drawer(
+      child: Column(
+        children: <Widget>[
+          Container(
+            width: double.infinity,
+            padding: EdgeInsets.all(30),
+            color: Colors.black,
+            child: Center(
+              child: Column(
+                children: <Widget>[
+                  GestureDetector(
+                    onTap: () {
+                      // print("Container was tapped");
+                      Navigator.pop(context);
+                      Navigator.push(context, MaterialPageRoute(builder: (context) =>  new update_Details()));
+                    },
+                    child: Container(
+                      width: 100.0,
+                      height: 100.0,
+                      margin: EdgeInsets.all(20.0),
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        image: DecorationImage(
+                          image:NetworkImage('https://1z1euk35x7oy36s8we4dr6lo-wpengine.netdna-ssl.com/wp-content/uploads/2019/11/numze-e1572781662446.jpg'),
+                          fit: BoxFit.fill,
+                        ),
+                      ),
+                    ),
+                  ),
+
+                  Text("YOUR NAME" ,style: TextStyle(color: Colors.white),)
+                ],
+              ),
+            ),
+          ),
+          ListTile(
+            leading: Icon(Icons.add),
+            title: Text(
+              "Add Complain",
+              style: TextStyle(
+                color: Colors.black,
+              ),
+            ),
+            onTap: () {
+              Navigator.pop(context);
+              Navigator.push(context, MaterialPageRoute(builder: (context) =>  new addComplain()));
+            },
+          ),
+          ListTile(
+            leading: Icon(Icons.all_out),
+            title: Text(
+              "My Complains",
+              style: TextStyle(
+                color: Colors.black,
+              ),
+            ),
+            onTap: (){
+              Navigator.pop(context);
+              Navigator.push(context, MaterialPageRoute(builder: (context) =>  new myComplain()));
+            },
+          ),
+
+          ListTile(
+            leading: Icon(Icons.all_out),
+            title: Text(
+              "Sign Out",
+              style: TextStyle(
+                color: Colors.black,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
 
 
 
@@ -26,6 +110,7 @@ class _mainDrawerState extends State<mainDrawer> {
                 Container(
                  width:100,
                  height: 100,
+                  margin: EdgeInsets.all(20.0),
                  decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   image: DecorationImage(
@@ -63,6 +148,21 @@ class _mainDrawerState extends State<mainDrawer> {
                Navigator.push(context, MaterialPageRoute(builder: (context) =>  new addComplain()));
               },
             ),
+
+            ListTile(
+              leading: Icon(Icons.add),
+              title: Text(
+                'My Complain',
+                style: TextStyle(
+                  color: Colors.black,
+                ),
+              ),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.push(context, MaterialPageRoute(builder: (context) =>  new myComplain()));
+              },
+            ),
+
             ListTile(
               leading: Icon(Icons.all_out),
               title: Text(

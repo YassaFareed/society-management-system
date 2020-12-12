@@ -1,26 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:societyworker/home_screens/markattendance.dart';
-import 'package:societyworker/home_screens/homescreen.dart';
+import 'package:societyworker/Detail_screens/guard_detail.dart';
+import 'package:societyworker/Detail_screens/sweeper_detail.dart';
 
 
 
-class attendanceScreen extends StatefulWidget {
+class workers extends StatefulWidget {
   @override
-  _attendanceScreenState createState() => _attendanceScreenState();
+  _workersState createState() => _workersState();
 }
 
-class _attendanceScreenState extends State<attendanceScreen> {
+class _workersState extends State<workers> {
   @override
   int index = 0;
-
-
-//<<<<<<< HEAD
-////  var Pageoptions = [ListofGuards() , ListOfSweapers()];
-//=======
-// // var Pageoptions = [ListofGuards() , ListOfSweapers()];
-//>>>>>>> 604b27ac78656071f9448eca5b3225043271a098
-
 
 
   Widget build(BuildContext context) {
@@ -34,10 +26,10 @@ class _attendanceScreenState extends State<attendanceScreen> {
             bottom: TabBar(
               tabs: <Widget>[
                 Tab(
-                  child: Text("Attendance"),
+                  child: Text("Guards"),
                 ),
                 Tab(
-                  child: Text("Check-in/Check-out"),
+                  child: Text("Sweepers"),
                 ),
               ],
             ),
@@ -45,8 +37,8 @@ class _attendanceScreenState extends State<attendanceScreen> {
         ),
         body: TabBarView(
           children: <Widget>[
-            Attendance(),
-            attendanceMark(),
+            guardDetail(),
+            sweeperDetail()
           ],
         ),
       ),

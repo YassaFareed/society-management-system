@@ -1,22 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:societyworker/Drawer/maindrawer.dart';
-import 'package:societyworker/home_screens/homescreen.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+import 'package:societyworker/home_screens/house_hould_screen.dart';
 import 'package:societyworker/home_screens/markattendance.dart';
-import 'package:societyworker/home_screens/attendancescreen.dart';
+import 'package:societyworker/home_screens/worker_screen.dart';
 import 'package:societyworker/setup_screens/complainscreen.dart';
 import 'package:societyworker/Detail_screens/payrolldetail.dart';
 
 
-
-class navBar extends StatefulWidget {
+class homeScreen extends StatefulWidget {
   @override
-  _navBarState createState() => _navBarState();
+  _homeScreenState createState() => _homeScreenState();
 }
 
-class _navBarState extends State<navBar> {
+class _homeScreenState extends State<homeScreen> {
 
-  var PageOptions = [attendanceScreen() , complainManagement(), payrollWorker()];
+  var PageOptions = [attendanceMark() , payrollWorker() , complainManagement() , houseHolds(),workers()];
   int _page = 0;
   @override
   Widget build(BuildContext context) {
@@ -26,7 +25,7 @@ class _navBarState extends State<navBar> {
         backgroundColor: Colors.black,
 
       ),
-      drawer:  mainDrawer(),
+      drawer:  Main_Drawer(),
       body: PageOptions[_page],
 
       bottomNavigationBar: CurvedNavigationBar(
@@ -39,11 +38,20 @@ class _navBarState extends State<navBar> {
           ),
           Padding(
             padding: const EdgeInsets.only(bottom: 8.0),
-            child: Text("Complains",style: TextStyle(color: _page==1 ?Colors.black: Colors.white),),
+            child: Text("Payroll",style: TextStyle(color: _page==1 ?Colors.black: Colors.white),),
           ),
           Padding(
             padding: const EdgeInsets.only(bottom: 8.0),
-            child: Text("Payroll",style: TextStyle(color: _page==2 ?Colors.black: Colors.white),),
+            child: Text("Complains",style: TextStyle(color: _page==2 ?Colors.black: Colors.white),),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(bottom: 8.0),
+            child: Text("Households",style: TextStyle(color: _page==3 ?Colors.black: Colors.white),),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(bottom: 8.0),
+            child: Text("Workers",style: TextStyle(color: _page==4 ?Colors.black: Colors.white),),
+
           ),
         ],
         color: Colors.black,
@@ -60,4 +68,8 @@ class _navBarState extends State<navBar> {
     );
   }
 }
+
+
+
+
 
