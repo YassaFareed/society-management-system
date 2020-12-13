@@ -5,6 +5,7 @@ import 'dart:async';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:societyworker/services/workerstatus.dart';
 
 class attendanceMark extends StatefulWidget {
   @override
@@ -31,6 +32,7 @@ class _attendanceMarkState extends State<attendanceMark> {
  // bool stopispressed = true;
   String stoptimetodisplay = "00:00:00";
   var swatch = Stopwatch();
+
   final dur = const Duration(seconds: 1);
 
   void starttimer(){
@@ -67,12 +69,17 @@ class _attendanceMarkState extends State<attendanceMark> {
     {
       value='Check-in';
       swatch.stop();
-
+      StatusService()
+          .updateHoursWorked(stoptimetodisplay.toString());
+      StatusService().updateDayWorker(DateFormat('EEEE').format(DateTime.now()).toString());
+      StatusService().updateCheckoutStatus(timeFormat.format(DateTime.now()).toString());
     }
+
     else{
       value='Check-out';
       swatch.start();
-
+      StatusService().updateCheckinStatus(timeFormat.format(DateTime.now()).toString());
+      StatusService().updateDateStatus(dateFormat.format(DateTime.now()).toString());
     }
   }
 
