@@ -6,6 +6,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:societyworker/services/workerstatus.dart';
+import 'package:societyworker/services/workerpayroll.dart';
 
 class attendanceMark extends StatefulWidget {
   @override
@@ -14,9 +15,12 @@ class attendanceMark extends StatefulWidget {
 
 class _attendanceMarkState extends State<attendanceMark> {
   @override
+
   void initState() {
     // TODO: implement initState
-    starttimer();
+    super.initState();
+
+  //  starttimer();
   }
 
   @override
