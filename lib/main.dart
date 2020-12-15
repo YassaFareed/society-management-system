@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:societyworker/setup_screens/login.dart';
 import 'package:splashscreen/splashscreen.dart';
+import 'package:societyworker/services/workerpayroll.dart';
 
-void main() => runApp(new MyApp());
+
+void main() {
+
+  runApp(new MyApp());
+}
 
 
 class MyApp extends StatelessWidget {

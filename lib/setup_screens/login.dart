@@ -292,7 +292,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       onPressed: () {
 
                         if(emailProvided && passwordProvided) {
-                        AuthService()
+                       /* AuthService()
                           .login(_email.text, _password.text)
                           .then((val) {
                                             print(val);
@@ -309,7 +309,12 @@ class _LoginScreenState extends State<LoginScreen> {
                                                   MaterialPageRoute(
                                                       builder: (context) =>
                                                           homeScreen()));
-                                            }});
+                                            }});*/
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    homeScreen()));
     //  }
     //  }
     //  );
