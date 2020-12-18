@@ -19,8 +19,8 @@ class _payrollWorkerState extends State<payrollWorker> {
   void initState() {
     super.initState();
     PayrollService().getWorkerPayroll();
-    print("HELO THIS IS INIT PAYROLL");
-    print(payroll);
+
+
 
 /*
 
@@ -52,18 +52,20 @@ class _payrollWorkerState extends State<payrollWorker> {
 
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
-      body: ListView.builder(
-          itemCount: payroll.length==0 ?1: payroll.length,
-          itemBuilder: (context , index){
-            return ColoumnWidget(totalPresent:payroll[index]['totalPresent'],totalAbsent:payroll[index]['totalAbsent'],name:payroll[index]['name'],basicSalary:payroll[index]['basicSalary'],workerId: payroll[index]['workerId'],bonus: payroll[index]['bonus'],deductionsPerAbsent:payroll[index]['deductionsPerAbsent'],totalDeductions: payroll[index]['totalDeductions'], totalIncome:payroll[index]['totalIncome'],objId: payroll[index]['_id'],);
-          }
+    return
+      Scaffold(
+      body: ColoumnWidget(totalPresent:payroll[0]['totalPresent']??"",totalAbsent:payroll[0]['totalAbsent']??"",name:payroll[0]['name'],basicSalary:payroll[0]['basicSalary'],workerId: payroll[0]['workerId'],bonus: payroll[0]['bonus'],deductionsPerAbsent:payroll[0]['deductionsPerAbsent'],totalDeductions: payroll[0]['totalDeductions'], totalIncome:payroll[0]['totalIncome'],objId: payroll[0]['_id']),
+      );
+//      ListView.builder(
+//          itemCount: payroll.length==0 ?1: payroll.length,
+//          itemBuilder: (context , index){
+//            return //ColoumnWidget(,);
+//         ; }
+//
+//      ),
 
-      ),
-
-    );
+    //);
    // payroll['totalPresent']
-   // return ColoumnWidget(totalPresent:500,totalAbsent:2,name:"hassan",basicSalary:500,workerId:"213123",bonus: 500,deductionsPerAbsent:2222,totalDeductions: 2200, totalIncome:500,objId:"2313",);
  /* return Scaffold(
     body:Container(
         child:Text(

@@ -4,6 +4,7 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:societyworker/home_screens/house_hould_screen.dart';
 import 'package:societyworker/home_screens/markattendance.dart';
 import 'package:societyworker/home_screens/worker_screen.dart';
+import 'package:societyworker/services/workerpayroll.dart';
 import 'package:societyworker/setup_screens/complainscreen.dart';
 import 'package:societyworker/Detail_screens/payrolldetail.dart';
 
@@ -14,6 +15,13 @@ class homeScreen extends StatefulWidget {
 }
 
 class _homeScreenState extends State<homeScreen> {
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+  }
 
   var PageOptions = [attendanceMark() , payrollWorker() , complainManagement() , houseHolds(),workers()];
   int _page = 0;

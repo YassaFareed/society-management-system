@@ -7,7 +7,7 @@ class PayrollService {
   Map<String, String> _headers = {
     "Content-Type": "application/json",
   };
-  final BASE_URL = 'http://192.168.0.108:5000/api/v1/workerpayroll';
+  final BASE_URL = 'http://192.168.100.134:5000/api/v1/workerpayroll';
 
   Future getWorkerPayroll() async {
     final path = '$BASE_URL';
@@ -19,11 +19,11 @@ class PayrollService {
           headers: _headers,
           body: json.encode(jsonBody),
           encoding: Encoding.getByName("utf-8"));
-    //  print(response);
+      print(response.body);
       payroll = json.decode(response.body)['data'];
-      print("HELO THIS IS PAY ROLL");
-      print(payroll);
-   //   print('hello' + respondedMap['data'][0]);
+//      print("HELO THIS IS PAY ROLL");
+     print(payroll[0]);
+
       if (response.statusCode == 200 || response.statusCode == 201) {
         return payroll;
       } else {
