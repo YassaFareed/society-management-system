@@ -2,7 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:societyworker/services/workerpayroll.dart';
-
+import 'package:societyworker/Detail_screens/payrolldetail.dart';
 
 class ColoumnWidget extends StatefulWidget {
 
@@ -17,7 +17,6 @@ class ColoumnWidget extends StatefulWidget {
   int deductionsPerAbsent;
   int totalIncome;
 
-
   ColoumnWidget(
       {Key key,
         this.objId,
@@ -29,7 +28,8 @@ class ColoumnWidget extends StatefulWidget {
         this.workerId,
         this.bonus,
         this.deductionsPerAbsent,
-        this.totalIncome})
+        this.totalIncome,
+        })
       : super(key: key);
 
   @override
@@ -37,8 +37,35 @@ class ColoumnWidget extends StatefulWidget {
 }
 
 
+
+
 class _ColoumnWidgetState extends State<ColoumnWidget> {
 
+
+  @override
+  List<PieChartSectionData> _sections = List<PieChartSectionData>();
+  void initState() {
+    super.initState();
+
+
+    PieChartSectionData _item1 = PieChartSectionData(
+      color: Colors.green,
+      value: widget.totalPresent.toDouble(),
+      title: 'Present',
+      radius: 50,
+      titleStyle:TextStyle(color: Colors.white,fontSize:20),
+    );
+
+    PieChartSectionData _item2 = PieChartSectionData(
+      color: Colors.redAccent,
+      value:widget.totalAbsent.toDouble(),
+      title: 'Absent',
+      radius: 50,
+      titleStyle:TextStyle(color: Colors.white,fontSize:20),
+    );
+
+    _sections = [_item1,_item2];
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -108,7 +135,7 @@ class _ColoumnWidgetState extends State<ColoumnWidget> {
         ),
         SizedBox(height:20,),
 
-        /*Container(
+        Container(
             height: 280,
             color:Colors.white,
             child: Card(
@@ -124,7 +151,7 @@ class _ColoumnWidgetState extends State<ColoumnWidget> {
                 ),
               ),
             ),
-          ),*/
+          ),
         SizedBox(height: 10,),
         Card(
           elevation: 10.0,

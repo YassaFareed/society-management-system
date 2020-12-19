@@ -7,7 +7,7 @@ class StatusService {
   Map<String, String> _headers = {
     "Content-Type": "application/json",
   };
-  final BASE_URL = 'http://192.168.0.108:5000/api/v1/workerstatus';
+  final BASE_URL = 'http://192.168.0.101:5000/api/v1/workerstatus';
 
   Future updateHoursWorked(hours) async
   {
@@ -47,7 +47,7 @@ class StatusService {
   {
     final path = '$BASE_URL/day';
     Map jsonBody = {
-      "workerId":'5fc381e585700f170c48ceac',
+      "workerId":'5fd9dd17aba2890f69befa08',
       "day":day
     };
     print(jsonBody);
@@ -81,7 +81,7 @@ class StatusService {
   {
     final path = '$BASE_URL/checkin';
     Map jsonBody = {
-      "workerId":'5fc381e585700f170c48ceac',
+      "workerId":'5fd9dd17aba2890f69befa08',
       "checkin":checkin
     };
     print(jsonBody);
@@ -115,7 +115,7 @@ class StatusService {
   {
     final path = '$BASE_URL/checkout';
     Map jsonBody = {
-      "workerId":'5fc381e585700f170c48ceac',
+      "workerId":'5fd9dd17aba2890f69befa08',
       "checkout":checkout
     };
     print(jsonBody);
@@ -148,7 +148,7 @@ class StatusService {
   {
     final path = '$BASE_URL/date';
     Map jsonBody = {
-      "workerId":'5fc381e585700f170c48ceac',
+      "workerId":'5fd9dd17aba2890f69befa08',
       "date":nowdate
     };
     print(jsonBody);

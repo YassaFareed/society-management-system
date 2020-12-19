@@ -2,29 +2,43 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 
+import 'package:societyworker/services/complains.dart';
+
+
 class complainManagement extends StatefulWidget {
   @override
   _complainManagementState createState() => _complainManagementState();
 }
-
+List complains;
 class _complainManagementState extends State<complainManagement> {
+
+
+  @override
+  void initState(){
+    super.initState();
+
+    ComplainServices().getComaplains();
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: SafeArea(
-          child: SingleChildScrollView(
-            child:
-            Column(mainAxisAlignment: MainAxisAlignment.start, children: <Widget>[
-              ColoumnWidget(title:'Guard Absent',name:'Ali Muhamamd',flat:'812',building: 'Y',date: '4 Nov 2020',status:'Pending',description:'Guard Absent on 23 November at around 2 to 3 o clock'),
-              ColoumnWidget(title:'Sweeper Misbehave ',name:'Hassan Butt',flat:'204',building: 'KA3',date: '5 Nov 2020',status:'Listened',description:'Sweeper had misbehaved with me on 23 November at around 2 to 3 o clock while i was handed him over garbage '),
-              ColoumnWidget(title:'Construction work ',name:'Yassa',flat:'667',building: 'W',date: '3 Nov 2020',status:'Not Listened',description:'Residual of Construction work was thrown besides our building'),
-            ]),
-          ),
-        ));
+      body: complains.length==0 ?Center(child: Text("There are no complains")):ListView.builder(
+          itemCount: complains==null ?0: complains.length,
+          itemBuilder: (context , index){
+            return ColoumnWidget(title:complains[index]['title'],name:complains[index]['name'],flat:complains[index]['flat'].toString(),building: complains[index]['building'],date: complains[index]['createdAt'],description:complains[index]['description'] , status:complains[index]['status'] , objId: complains[index]['_id'],);
+          }
+      ),
+
+    );
+
   }
 }
 
+
 class ColoumnWidget extends StatefulWidget {
+  String objId;
   String title;
   String status;
   String name;
@@ -33,8 +47,18 @@ class ColoumnWidget extends StatefulWidget {
   String date;
   String description;
 
-  ColoumnWidget({ Key key, this.title,this.name,this.flat,this.building,this.date,this.status,this.description }): super(key: key);
 
+  ColoumnWidget(
+      {Key key,
+        this.title,
+        this.name,
+        this.flat,
+        this.building,
+        this.date,
+        this.description,
+        this.status,
+        this.objId})
+      : super(key: key);
 
   @override
   _ColoumnWidgetState createState() => _ColoumnWidgetState();
@@ -50,7 +74,7 @@ class _ColoumnWidgetState extends State<ColoumnWidget> {
       child: Container(
         decoration: BoxDecoration(borderRadius: BorderRadius.circular(15),border: Border.all(color: Colors.grey,width: 2),),
         width: double.infinity,
-        height: 310.0,
+        height: 320.0,
         child: Card(
           elevation: 10.0,
           shape: RoundedRectangleBorder(
@@ -70,7 +94,7 @@ class _ColoumnWidgetState extends State<ColoumnWidget> {
                       height: 30.0,
                       child: Center(
                         child: AutoSizeText(
-                          'Title: '+ widget.title ,
+                          'Tittle: '+ widget.title ,
                           style: TextStyle(fontSize: 15.0,fontWeight: FontWeight.bold),
                           maxLines: 2,
                         ),
@@ -133,37 +157,33 @@ class _ColoumnWidgetState extends State<ColoumnWidget> {
                         ],
                       ),
                     ),
-                    SizedBox(height: 8,),
+                    SizedBox(height: 8),
                     Container(
+                      width: 300.0,
                       height: 20,
-                      width: 300,
-                      child: Row(
-
-                        children: <Widget>[
-                          Expanded(
-                            child: Container(
-                              child: RichText(
-                                text: TextSpan(style: new TextStyle(fontSize: 14.0, color: Colors.black,),
-                                  children: <TextSpan>[
-                                    new TextSpan(text: 'Date: ',style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold)),
-                                    new TextSpan(text: widget.date, style: new TextStyle(fontSize: 15),)],
-                                ),
-                              ),
-                            ),
-                          ),
-                          Expanded(
-                            child: Container(
-                              child: RichText(
-                                text: TextSpan(style: new TextStyle(fontSize: 14.0, color: Colors.black,),
-                                  children: <TextSpan>[
-                                    new TextSpan(text: 'Status: ',style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold)),
-                                    new TextSpan(text: widget.status, style: new TextStyle(fontSize: 15),)],
-                                ),
-                              ),                              ),
-                          )
-                        ],
+                      child: RichText(
+                        text: TextSpan(
+                          style: new TextStyle(fontSize: 14.0, color: Colors.black,),
+                          children: <TextSpan>[
+                            new TextSpan(text: 'Date: ',style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold)),
+                            new TextSpan(text: widget.date, style: new TextStyle(fontSize: 15),)],
+                        ),
                       ),
                     ),
+                    SizedBox(height: 8),
+                    Container(
+
+                      width: 300.0,
+                      child: RichText(
+                        text: TextSpan(
+                          style: new TextStyle(fontSize: 14.0, color: Colors.black,),
+                          children: <TextSpan>[
+                            new TextSpan(text: 'Status: ',style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold)),
+                            new TextSpan(text: widget.status, style: new TextStyle(fontSize: 15),)],
+                        ),
+                      ),
+                    ),
+
 
                     SizedBox(height: 12,),
                     // Text(
@@ -195,177 +215,4 @@ class _ColoumnWidgetState extends State<ColoumnWidget> {
     );
   }
 }
-
-
-// class _complainManagementState extends State<complainManagement> {
-//   var _status = ['Not Listened', 'In Progress', 'Listened'];
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//         body: SingleChildScrollView(
-//       child:
-//           Column(mainAxisAlignment: MainAxisAlignment.start, children: <Widget>[
-//            Container(
-//           padding: EdgeInsets.all(10),
-//           width: double.infinity,
-//           height: 300.0,
-//           decoration: BoxDecoration(borderRadius: BorderRadius.circular(40.0)),
-//           child: Card(
-//             elevation: 10.0,
-//             child: Row(
-//               mainAxisAlignment: MainAxisAlignment.center,
-//               children: <Widget>[
-//                 Padding(
-//                   padding: const EdgeInsets.all(8.0),
-//                   child: Column(
-//                     children: <Widget>[
-//                       Center(child: Text("Title Of Complain")),
-//                       SizedBox(height: 10,),
-//                       DropdownButton<String>(
-//                         isExpanded: false,
-//                         focusColor: Colors.grey,
-//                         hint: Text("Status Of Complain"),
-//                         items: _status.map((String dropDownStringItem) {
-//                           return DropdownMenuItem<String>(
-//                             value: dropDownStringItem,
-//                             child: Text(dropDownStringItem),
-//                           );
-//                         }).toList(),
-//                         onChanged: (String newvalue) {
-//                           setState(() {});
-//                         },
-//                       ),
-//                       SizedBox(height: 10,),
-//                       Text(
-//                         "Complain:",
-//                         style: TextStyle(fontWeight: FontWeight.bold),
-//                       ),
-//                       SizedBox(height: 10,),
-//                       Container(
-//                         width: 300.0,
-//                         height: 140.0,
-//                         child: AutoSizeText(
-//                           'This string will be automatically resized to fit in two lines.This string will be automatically resized to fit in two lines.',
-//                           style: TextStyle(fontSize: 17.0),
-//                           maxLines: 6,
-//                         ),
-//                       ),
-//
-//                     ],
-//                   ),
-//                 ),
-//               ],
-//             ),
-//           ),
-//         ),
-//             Container(
-//               padding: EdgeInsets.all(10),
-//               width: double.infinity,
-//               height: 300.0,
-//               decoration: BoxDecoration(borderRadius: BorderRadius.circular(40.0)),
-//               child: Card(
-//                 elevation: 10.0,
-//                 child: Row(
-//                   mainAxisAlignment: MainAxisAlignment.center,
-//                   children: <Widget>[
-//                     Padding(
-//                       padding: const EdgeInsets.all(8.0),
-//                       child: Column(
-//                         children: <Widget>[
-//                           Center(child: Text("Title Of Complain")),
-//                           SizedBox(height: 10,),
-//                           DropdownButton<String>(
-//                             isExpanded: false,
-//                             focusColor: Colors.grey,
-//                             hint: Text("Status Of Complain"),
-//                             items: _status.map((String dropDownStringItem) {
-//                               return DropdownMenuItem<String>(
-//                                 value: dropDownStringItem,
-//                                 child: Text(dropDownStringItem),
-//                               );
-//                             }).toList(),
-//                             onChanged: (String newvalue) {
-//                               setState(() {});
-//                             },
-//                           ),
-//                           SizedBox(height: 10,),
-//                           Text(
-//                             "Complain:",
-//                             style: TextStyle(fontWeight: FontWeight.bold),
-//                           ),
-//                           SizedBox(height: 10,),
-//                           Container(
-//                             width: 300.0,
-//                             height: 140.0,
-//                             child: AutoSizeText(
-//                               'This string will be automatically resized to fit in two lines.This string will be automatically resized to fit in two lines.',
-//                               style: TextStyle(fontSize: 17.0),
-//                               maxLines: 6,
-//                             ),
-//                           ),
-//
-//                         ],
-//                       ),
-//                     ),
-//                   ],
-//                 ),
-//               ),
-//             ),
-//             Container(
-//               padding: EdgeInsets.all(10),
-//               width: double.infinity,
-//               height: 300.0,
-//               decoration: BoxDecoration(borderRadius: BorderRadius.circular(40.0)),
-//               child: Card(
-//                 elevation: 10.0,
-//                 child: Row(
-//                   mainAxisAlignment: MainAxisAlignment.center,
-//                   children: <Widget>[
-//                     Padding(
-//                       padding: const EdgeInsets.all(8.0),
-//                       child: Column(
-//                         children: <Widget>[
-//                           Center(child: Text("Title Of Complain")),
-//                           SizedBox(height: 10,),
-//                           DropdownButton<String>(
-//                             isExpanded: false,
-//                             focusColor: Colors.grey,
-//                             hint: Text("Status Of Complain"),
-//                             items: _status.map((String dropDownStringItem) {
-//                               return DropdownMenuItem<String>(
-//                                 value: dropDownStringItem,
-//                                 child: Text(dropDownStringItem),
-//                               );
-//                             }).toList(),
-//                             onChanged: (String newvalue) {
-//                               setState(() {});
-//                             },
-//                           ),
-//                           SizedBox(height: 10,),
-//                           Text(
-//                             "Complain:",
-//                             style: TextStyle(fontWeight: FontWeight.bold),
-//                           ),
-//                           SizedBox(height: 10,),
-//                           Container(
-//                             width: 300.0,
-//                             height: 140.0,
-//                             child: AutoSizeText(
-//                               'This string will be automatically resized to fit in two lines.This string will be automatically resized to fit in two lines.',
-//                               style: TextStyle(fontSize: 17.0),
-//                               maxLines: 6,
-//                             ),
-//                           ),
-//
-//                         ],
-//                       ),
-//                     ),
-//                   ],
-//                 ),
-//               ),
-//             ),
-//       ]),
-//     ));
-//   }
-// }
 

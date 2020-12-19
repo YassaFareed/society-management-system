@@ -9,20 +9,19 @@ class myComplain extends StatefulWidget {
 }
 
 
+List myComplains;
 class myComplainState extends State<myComplain> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: SafeArea(
-          child: SingleChildScrollView(
-            child:
-            Column(mainAxisAlignment: MainAxisAlignment.start, children: <Widget>[
-              ColoumnWidget(title:'Guard Absent',name:'Ali Muhamamd',flat:'812',building: 'Y',date: '4 Nov 2020',status:'Pending',description:'Guard Absent on 23 November at around 2 to 3 o clock'),
-              ColoumnWidget(title:'Sweeper Misbehave ',name:'Hassan Butt',flat:'204',building: 'KA3',date: '5 Nov 2020',status:'Listened',description:'Sweeper had misbehaved with me on 23 November at around 2 to 3 o clock while i was handed him over garbage '),
-              ColoumnWidget(title:'Construction work ',name:'Yassa',flat:'667',building: 'W',date: '3 Nov 2020',status:'Not Listened',description:'Residual of Construction work was thrown besides our building'),
-            ]),
-          ),
-        ));
+      body:myComplains.length==0 ? Center(child: Text("There are no complains")):ListView.builder(
+          itemCount: myComplains==null ?0: myComplains.length,
+          itemBuilder: (context , index){
+            return ColoumnWidget(title:myComplains[index]['title'],name:myComplains[index]['name'],flat:myComplains[index]['flat'].toString(),building: myComplains[index]['building'],date: myComplains[index]['createdAt'].toString(),description:myComplains[index]['description'] , status:myComplains[index]['status']??"Not Listened" , objId: myComplains[index]['_id'],);
+          }
+      ),
+
+    );
   }
 }
 

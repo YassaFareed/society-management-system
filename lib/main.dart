@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:societyworker/setup_screens/login.dart';
 import 'package:splashscreen/splashscreen.dart';
-import 'package:societyworker/services/workerpayroll.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:societyworker/constants/global_variables.dart';
+import 'package:societyworker/services/complains.dart';
+import 'package:societyworker/services/resdent.dart';
 
-
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  prefs = await SharedPreferences.getInstance();
+  ComplainServices().getComaplains();
+  ResidentServices().getByBuildings();
 
   runApp(new MyApp());
 }

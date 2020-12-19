@@ -2,16 +2,18 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:societyworker/Detail_screens/payrolldetail.dart';
-
+import 'package:societyworker/constants/global_variables.dart';
 class PayrollService {
   Map<String, String> _headers = {
     "Content-Type": "application/json",
   };
-  final BASE_URL = 'http://192.168.100.134:5000/api/v1/workerpayroll';
+  final BASE_URL = 'http://192.168.0.101:5000/api/v1/workerpayroll';
 
   Future getWorkerPayroll() async {
     final path = '$BASE_URL';
-    Map jsonBody = {"workerId": "5fc381e585700f170c48ceac"};
+    print("helloooooooooooo");
+    print(user.name);
+    Map jsonBody = {"workerId": "5fd9dd17aba2890f69befa08"};
     var response;
     try {
       print('POST API CALLED $path');
@@ -36,7 +38,7 @@ class PayrollService {
 
   Future<Map<String, dynamic>> getworkerName() async {
     final path = '$BASE_URL/name';
-    Map jsonBody = {"workerId": "5fc381e585700f170c48ceac"};
+    Map jsonBody = {"workerId": "5fd9dd17aba2890f69befa08"};
     var response;
     try {
       print('POST API CALLED $path');

@@ -3,7 +3,7 @@ import 'package:societyworker/home_screens/homeScreen.dart';
 import 'package:toast/toast.dart';
 import 'package:societyworker/setup_screens/forgotpassword.dart';
 import 'package:societyworker/services/auth_service.dart';
-
+import 'package:societyworker/constants/global_variables.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -291,40 +291,28 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: MaterialButton(
                       onPressed: () {
 
-                        if(emailProvided && passwordProvided) {
-                       /* AuthService()
-                          .login(_email.text, _password.text)
-                          .then((val) {
-                                            print(val);
-                                            if (val['success']) {
-                                              token = val['token'];
-                                              print(token);
-                                              Toast.show(
-                                                  "Authenticated", context,
-                                                  duration: Toast.LENGTH_LONG,
-                                                  gravity: Toast.BOTTOM);
-                                              Navigator.pop(context);
-                                              Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          homeScreen()));
-                                            }});*/
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    homeScreen()));
-    //  }
-    //  }
-    //  );
-    //   print('Verifying President');
-    //Toast.show("Verified", context,
-    //  duration: Toast.LENGTH_LONG,
-    //gravity: Toast.BOTTOM);
+                        if (emailProvided && passwordProvided) {
+                            AuthService()
+                              .login(_email.text, _password.text)
+                              .then((val) {
+                            print(val);
+                            if (val['success']) {
+                              user.Email = _email.text;
+                              token = val['token'];
+                              print(token);
+                              Toast.show("Authenticated", context,
+                                  duration: Toast.LENGTH_LONG,
+                                  gravity: Toast.BOTTOM);
+                             Navigator.pop(context);
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => homeScreen()));
+                            }
+                          });
 
-                      }
-                        else if(!emailProvided && !passwordProvided){
+
+                        }else if(!emailProvided && !passwordProvided){
                           Toast.show("invalid Email and Password", context,
                               duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
                         }

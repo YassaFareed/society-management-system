@@ -1,16 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:toast/toast.dart';
+import 'package:societyworker/services/resdent.dart';
 import 'house_hold_info.dart';
-import 'package:toast/toast.dart';
-
 
 var blockSearch;
 
-class houseHolds extends StatelessWidget {
+class houseHolds extends StatefulWidget {
+
+  @override
+  _houseHoldsState createState() => _houseHoldsState();
+}
+
+class _houseHoldsState extends State<houseHolds> {
+
+  TextEditingController _block = TextEditingController();
+  bool blockProvided = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
+
         //padding: EdgeInsets.symmetric(vertical: 20),
         width: double.infinity,
         decoration: BoxDecoration(
@@ -47,9 +57,18 @@ class houseHolds extends StatelessWidget {
                     borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(60),
                         topRight: Radius.circular(60))),
-                child: Padding(
-                  padding: EdgeInsets.all(20.0),
-                  child: houseHoldsView(),
+                child: Column(
+                  children: [
+                    Expanded(
+                      child: Container(
+                        child: Padding(
+                          padding: EdgeInsets.all(20.0),
+                          child: houseHoldsView(),
+                        ),
+                      ),
+                    ),
+
+                  ],
                 ),
               ),
             ),
@@ -64,27 +83,33 @@ class houseHoldsView extends StatefulWidget {
   @override
   _houseHoldsViewState createState() => _houseHoldsViewState();
 }
-
+Set blocks = {};
 class _houseHoldsViewState extends State<houseHoldsView> {
+
+  int i;
+  TextEditingController _blocknew = TextEditingController();
+  bool blocknewProvided = false;
+
+  @override
+  void initState(){
+    super.initState();
+//    ResidentServices().getByBuildings();
+  }
+
   @override
   Widget build(BuildContext context) {
-    var blocks = [
-      "Ka1 Block",
-      "Ka2 Block",
-      "Ka3 Block",
-      "Ka4 Block",
-      "Ka5 Block",
-      "Ka6 Block",
-      "Ka7 Block"
-    ];
+
+
+    var block = blocks.toList();
     var myGridView = new GridView.builder(
-      itemCount: blocks.length,
+      itemCount: block.length,
       scrollDirection: Axis.vertical,
       gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
         childAspectRatio: (2.5 / 1),
       ),
       itemBuilder: (BuildContext context, int index) {
+
         return Padding(
           padding: const EdgeInsets.all(8.0),
           child: MaterialButton(
@@ -95,19 +120,49 @@ class _houseHoldsViewState extends State<houseHoldsView> {
               child: Padding(
                 padding: const EdgeInsets.all(3.0),
                 child: new Text(
-                  blocks[index],
+                  block[index],
                   style: TextStyle(color: Colors.white, fontSize: 20),
                 ),
               ),
             ),
-            onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => houseHoldInfo()));
+            onPressed: () async{
+
+              ResidentServices().getAllBuildings(block[index]).then((value){
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => houseHoldInfo()));
+              });
             },
+
+
           ),
         );
       },
     );
+    // var myListView = new ListView.builder(
+    //   itemCount: blocks.length,
+    //   itemBuilder: (BuildContext context, int index) {
+    //     return Padding(
+    //       padding: const EdgeInsets.all(10.0),
+    //       child: Card(
+    //         color: Colors.black,
+    //         child: ListTile(
+    //           title: new Text(
+    //             blocks[index],
+    //             style: TextStyle(color: Colors.white, fontSize: 20),
+    //           ),
+    //           trailing: Icon(
+    //             Icons.more_vert,
+    //             color: Colors.white,
+    //           ),
+    //           onTap: () {
+    //             Navigator.push(context,
+    //                 MaterialPageRoute(builder: (context) => houseHoldInfo()));
+    //           },
+    //         ),
+    //       ),
+    //     );
+    //   },
+    // );
     return myGridView;
   }
 }

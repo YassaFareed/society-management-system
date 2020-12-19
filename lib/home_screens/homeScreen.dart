@@ -3,8 +3,6 @@ import 'package:societyworker/Drawer/maindrawer.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:societyworker/home_screens/house_hould_screen.dart';
 import 'package:societyworker/home_screens/markattendance.dart';
-import 'package:societyworker/home_screens/worker_screen.dart';
-import 'package:societyworker/services/workerpayroll.dart';
 import 'package:societyworker/setup_screens/complainscreen.dart';
 import 'package:societyworker/Detail_screens/payrolldetail.dart';
 
@@ -23,7 +21,7 @@ class _homeScreenState extends State<homeScreen> {
 
   }
 
-  var PageOptions = [attendanceMark() , payrollWorker() , complainManagement() , houseHolds(),workers()];
+  var PageOptions = [attendanceMark() , payrollWorker() , complainManagement() , houseHolds()];
   int _page = 0;
   @override
   Widget build(BuildContext context) {
@@ -56,11 +54,7 @@ class _homeScreenState extends State<homeScreen> {
             padding: const EdgeInsets.only(bottom: 8.0),
             child: Text("Households",style: TextStyle(color: _page==3 ?Colors.black: Colors.white),),
           ),
-          Padding(
-            padding: const EdgeInsets.only(bottom: 8.0),
-            child: Text("Workers",style: TextStyle(color: _page==4 ?Colors.black: Colors.white),),
 
-          ),
         ],
         color: Colors.black,
         buttonBackgroundColor: Colors.white,

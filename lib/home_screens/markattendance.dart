@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:societyworker/services/workerstatus.dart';
 import 'package:societyworker/services/workerpayroll.dart';
+import 'package:societyworker/services/auth_service.dart';
 
 class attendanceMark extends StatefulWidget {
   @override
@@ -19,6 +20,7 @@ class _attendanceMarkState extends State<attendanceMark> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    AuthService().getCurrentUser();
 
   //  starttimer();
   }
@@ -42,6 +44,7 @@ class _attendanceMarkState extends State<attendanceMark> {
   void starttimer(){
     Timer(dur, keeprunning); // starts a timer
   }
+
 
   void keeprunning(){
       starttimer();
