@@ -8,6 +8,7 @@ import 'package:intl/intl.dart';
 import 'package:societyworker/services/workerstatus.dart';
 import 'package:societyworker/services/workerpayroll.dart';
 import 'package:societyworker/services/auth_service.dart';
+import 'package:societyworker/services/complains.dart';
 
 class attendanceMark extends StatefulWidget {
   @override
@@ -21,8 +22,10 @@ class _attendanceMarkState extends State<attendanceMark> {
     // TODO: implement initState
     super.initState();
     AuthService().getCurrentUser();
+    ComplainServices().getMyComplains();
+    PayrollService().getWorkerPayroll();
 
-  //  starttimer();
+    //  starttimer();
   }
 
   @override
