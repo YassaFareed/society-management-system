@@ -25,7 +25,7 @@ class _attendanceMarkState extends State<attendanceMark> {
     ComplainServices().getMyComplains();
     PayrollService().getWorkerPayroll();
 
-    //  starttimer();
+      starttimer();
   }
 
   @override
