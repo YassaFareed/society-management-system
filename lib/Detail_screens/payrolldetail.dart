@@ -12,17 +12,16 @@ class payrollWorker extends StatefulWidget {
 List payroll;
 class _payrollWorkerState extends State<payrollWorker> {
 
-
+/*
 
   @override
 
   void initState() {
     super.initState();
-    AuthService().getCurrentUser();
     PayrollService().getWorkerPayroll();
 
   }
-
+*/
 
   @override
   Widget build(BuildContext context) {
