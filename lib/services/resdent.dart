@@ -9,7 +9,7 @@ class ResidentServices {
   Map<String, String> _headers = {
     "Content-Type": "application/json",
   };
-  final BASE_URL = 'http://192.168.0.101:5000/api/v1/resident';
+  final BASE_URL = 'http://192.168.0.103:5000/api/v1/resident';
   Future getAllBuildings(build) async {
     final path = '$BASE_URL/building';
     print(_headers);
