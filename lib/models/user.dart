@@ -5,7 +5,6 @@ class User
   String name = '';
   String password = '';
   String building= '';
-  int flat = 0;
 
   User.fromJson(Map<String, dynamic> map) {
     if (map == null){
@@ -35,19 +34,13 @@ class User
     this.building = building;
   }
 
-  void set Flat(int flat)
-  {
-    this.flat = flat;
-  }
+
   String get MyId
   {
     return myid;
   }
 
-  int get Flat
-  {
-    return flat;
-  }
+
 
   String get Building
   {
