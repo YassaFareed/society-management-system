@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:societyworker/services/workerpayroll.dart';
 import 'package:societyworker/widgets/Columnwidget.dart';
-
+import 'package:societyworker/services/auth_service.dart';
 
 class payrollWorker extends StatefulWidget {
   @override
@@ -18,6 +18,7 @@ class _payrollWorkerState extends State<payrollWorker> {
 
   void initState() {
     super.initState();
+    AuthService().getCurrentUser();
     PayrollService().getWorkerPayroll();
 
   }
