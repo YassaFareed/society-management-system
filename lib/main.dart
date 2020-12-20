@@ -11,7 +11,6 @@ void main() async {
   prefs = await SharedPreferences.getInstance();
   ComplainServices().getComaplains();
   ResidentServices().getByBuildings();
-
   runApp(new MyApp());
 }
 
