@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:societyworker/Detail_screens/update_Details.dart';
 import 'package:societyworker/Drawer/my_complain.dart';
 import 'package:societyworker/Drawer/addcomplain.dart';
+import 'package:societyworker/constants/global_variables.dart';
 import 'package:flutter/material.dart';
 import 'package:toast/toast.dart';
 
@@ -39,7 +40,7 @@ class Main_Drawer extends StatelessWidget {
                     ),
                   ),
 
-                  Text("YOUR NAME" ,style: TextStyle(color: Colors.white),)
+                  Text(user.name,style: TextStyle(color: Colors.white),)
                 ],
               ),
             ),
