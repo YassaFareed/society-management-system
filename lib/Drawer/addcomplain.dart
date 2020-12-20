@@ -1,26 +1,49 @@
+import 'dart:io';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:toast/toast.dart';
+import 'package:flutter/services.dart';
 import 'package:societyworker/setup_screens/complainscreen.dart';
+import 'package:societyworker/home_screens/homeScreen.dart';
+import 'package:societyworker/services/complains.dart';
+import 'package:toast/toast.dart';
 
 class addComplain extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body:Container(
-          padding: EdgeInsets.symmetric(vertical: 40),
-          width: double.infinity,
-          color:Colors.black,
+      body: Container(
+        padding: EdgeInsets.symmetric(vertical: 20),
+        width: double.infinity,
+        decoration: BoxDecoration(
+            gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                colors: [Colors.black, Colors.black])),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
+          children: <Widget>[
             SizedBox(
-              height:30,
+              height: 30,
             ),
             Padding(
-              padding: EdgeInsets.all(20.0),
-              child: Text(
-                "Add Complain",
-                style: TextStyle(color: Colors.white, fontSize: 35),
+              padding: EdgeInsets.all(20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    "Add Complain",
+                    style: TextStyle(color: Colors.white, fontSize: 35),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  // Padding(
+                  //   padding: const EdgeInsets.only(left: 8),
+                  //   child: Text(
+                  //     "Write your complain",
+                  //     style: TextStyle(color: Colors.white, fontSize: 18),
+                  //   ),
+                  // ),
+                ],
               ),
             ),
             SizedBox(
@@ -39,18 +62,13 @@ class addComplain extends StatelessWidget {
                 ),
               ),
             ),
-
-
           ],
         ),
-        ),
-
-
-
-
+      ),
     );
   }
 }
+
 class complainForm extends StatefulWidget {
   @override
   _complainFormState createState() => _complainFormState();
@@ -60,6 +78,7 @@ class _complainFormState extends State<complainForm> {
 
 
   TextEditingController _complain = TextEditingController();
+  TextEditingController _title = TextEditingController();
   bool complainProvided = false;
   String complainErrorText;
 
@@ -91,11 +110,49 @@ class _complainFormState extends State<complainForm> {
                 ),
 //                text_input(
 //                    'Enter Resident\'s Full Name', Icons.contact_mail, false),
+                TextFormField(
+                  controller: _title,
+                  keyboardType: TextInputType.emailAddress,
+                  decoration: InputDecoration(
+                    hintText: 'Enter Complain Title',
+                    labelStyle: TextStyle(
+                      fontWeight: FontWeight.w500,
+                      color: Colors.grey,
+                    ),
+                    floatingLabelBehavior: FloatingLabelBehavior.always,
+                    contentPadding:
+                    EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                    enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20),
+                        borderSide: BorderSide(color: Colors.grey),
+                        gapPadding: 10),
+                    focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20),
+                        borderSide: BorderSide(color: Colors.grey),
+                        gapPadding: 10),
+                    focusedErrorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20),
+                        borderSide: BorderSide(color: Colors.grey),
+                        gapPadding: 10),
+                    errorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20),
+                        borderSide: BorderSide(color: Colors.grey),
+                        gapPadding: 10),
+                    prefixIcon: Icon(
+                      Icons.title,
+                      color: Colors.grey,
+                    ),
+                  ),
+                  obscureText: false,
+                ),
+                SizedBox(
+                  height: 25.0,
+                ),
                 TextField(
                   maxLines: 6,
                   controller: _complain,
                   decoration: InputDecoration(
-                    hintText: 'write your Complain..',
+                    hintText: 'Enter Your Complain..',
                     labelStyle: TextStyle(
                       fontWeight: FontWeight.w500,
                       color: Colors.grey,
@@ -146,9 +203,15 @@ class _complainFormState extends State<complainForm> {
 
 
                         if( complainProvided  ){
-                         Navigator.pop(context);
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => complainManagement()));
-                          Toast.show("Complain Added", context, duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+                          ComplainServices().createComplain(_title.text , _complain.text).then((value){
+                            ComplainServices().getMyComplains();
+
+                            Navigator.pop(context);
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => complainManagement()));
+                            Toast.show("Complain Added", context, duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+
+                          });
+
 
 
                           setState(() {
