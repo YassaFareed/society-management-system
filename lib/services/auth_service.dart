@@ -8,7 +8,7 @@ class AuthService {
   Map<String, String> _headers = {
     "Content-Type": "application/json",
   };
-  final BASE_URL = 'http://192.168.0.101:5000/api/v1/auth';
+  final BASE_URL = 'http://192.168.0.103:5000/api/v1/auth';
   Future login(email, password) async {
     final path = '$BASE_URL/login';
     print(email);
@@ -61,9 +61,11 @@ class AuthService {
       var respondedMap = json.decode(response.body)['data'];
      // user.building = respondedMap['building'];
      // user.flat = respondedMap['flat'];
-      user.MyId = respondedMap['workerId'].toString();
-      user.Name = respondedMap['name'].toString();
+      user.myid = respondedMap['_id'].toString();
+
+      user.name = respondedMap['name'].toString();
       print("HELLO");
+      print(user.myid);
       print(respondedMap);
       if (response.statusCode == 200 || response.statusCode == 201) {
         return respondedMap;
