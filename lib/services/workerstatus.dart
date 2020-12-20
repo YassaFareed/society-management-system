@@ -2,18 +2,19 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/flutterToast.dart';
 import 'package:http/http.dart' as http;
+import 'package:societyworker/constants/global_variables.dart';
 
 class StatusService {
   Map<String, String> _headers = {
     "Content-Type": "application/json",
   };
-  final BASE_URL = 'http://192.168.0.101:5000/api/v1/workerstatus';
+  final BASE_URL = 'http://192.168.0.103:5000/api/v1/workerstatus';
 
   Future updateHoursWorked(hours) async
   {
     final path = '$BASE_URL/hours';
     Map jsonBody = {
-      "workerId":'5fc381e585700f170c48ceac',
+      "workerId":user.myid,
       "hoursWorked":hours
     };
     print(jsonBody);
@@ -47,7 +48,7 @@ class StatusService {
   {
     final path = '$BASE_URL/day';
     Map jsonBody = {
-      "workerId":'5fd9dd17aba2890f69befa08',
+      "workerId":user.myid,
       "day":day
     };
     print(jsonBody);
@@ -81,7 +82,7 @@ class StatusService {
   {
     final path = '$BASE_URL/checkin';
     Map jsonBody = {
-      "workerId":'5fd9dd17aba2890f69befa08',
+      "workerId":user.myid,
       "checkin":checkin
     };
     print(jsonBody);
@@ -115,7 +116,7 @@ class StatusService {
   {
     final path = '$BASE_URL/checkout';
     Map jsonBody = {
-      "workerId":'5fd9dd17aba2890f69befa08',
+      "workerId":user.myid,
       "checkout":checkout
     };
     print(jsonBody);
@@ -148,7 +149,7 @@ class StatusService {
   {
     final path = '$BASE_URL/date';
     Map jsonBody = {
-      "workerId":'5fd9dd17aba2890f69befa08',
+      "workerId":user.myid,
       "date":nowdate
     };
     print(jsonBody);
